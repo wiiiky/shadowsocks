@@ -21,8 +21,10 @@ from __future__ import absolute_import, division, print_function, \
 import selectors
 import time
 
+from miserable.utils import singleton
 
-class MainLoop(object):
+
+class MainLoop(object, metaclass=singleton):
 
     EVENT_READ = selectors.EVENT_READ
     EVENT_WRITE = selectors.EVENT_WRITE

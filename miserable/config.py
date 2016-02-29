@@ -22,7 +22,7 @@ import copy
 import json
 import argparse
 import sys
-from miserable.utils import *
+from miserable.utils.net import *
 
 
 class ConfigManager(object):
