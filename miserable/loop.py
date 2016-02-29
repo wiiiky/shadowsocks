@@ -30,17 +30,14 @@ class MainLoop(object):
 
     def __init__(self):
         self._selector = selectors.DefaultSelector()
-        self._files = set()
         self._timeouts = {}
         self._running = False
 
     def register(self, fileobj, events, func):
         self._selector.register(fileobj, events, func)
-        self._files.add(fileobj)
 
     def unregister(self, fileobj):
         self._selector.unregister(fileobj)
-        self._files.remove(fileobj)
 
     def modify(self, fileobj, events, func):
         self._selector.modify(fileobj, events, func)
