@@ -21,8 +21,10 @@ from __future__ import absolute_import, division, print_function, \
 import selectors
 import time
 
+from miserable.utils import singleton
 
-class MainLoop(object):
+
+class MainLoop(object, metaclass=singleton):
 
     EVENT_READ = selectors.EVENT_READ
     EVENT_WRITE = selectors.EVENT_WRITE
@@ -30,17 +32,14 @@ class MainLoop(object):
 
     def __init__(self):
         self._selector = selectors.DefaultSelector()
-        self._files = set()
         self._timeouts = {}
         self._running = False
 
     def register(self, fileobj, events, func):
         self._selector.register(fileobj, events, func)
-        self._files.add(fileobj)
 
     def unregister(self, fileobj):
         self._selector.unregister(fileobj)
-        self._files.remove(fileobj)
 
     def modify(self, fileobj, events, func):
         self._selector.modify(fileobj, events, func)
